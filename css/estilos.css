@@ -158,3 +158,11 @@ background-image:url(../imgs/apache.png);
 	left: 5px;
 	top: 590px;
 }
+
+#energia {
+	width: 140px;
+	height: 38px;
+	position: absolute;
+	left: 750px;
+	top: 7px;	
+}
