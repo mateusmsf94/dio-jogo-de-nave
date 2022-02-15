@@ -6,10 +6,14 @@ function start() { // Inicio da funcao start()
     $("#fundoGame").append("<div id='inimigo1' class='anima2'></div>");
     $("#fundoGame").append("<div id='inimigo2'></div>");
     $("#fundoGame").append("<div id='amigo' class='anima3'></div>");
+    $("#fundoGame").append("<div id='placar'></div>");
 
     //Principais variaveis do jogo
 
     var jogo = {}
+    var pontos = 0;
+    var salvos = 0;
+    var perdidos = 0;
     var podeAtirar = true;
     var fimdejogo = false;
     var TECLA = {
@@ -45,6 +49,8 @@ function start() { // Inicio da funcao start()
         moveinimigo2();
         moveamigo();
         colisao();
+        placar();
+
 
     } // Fim da funcao loop()
 
@@ -196,6 +202,7 @@ function start() { // Inicio da funcao start()
         // Disparo com o inimigo1
         if (colisao3.length > 0) {
 
+            pontos = pontos + 100;
             inimigo1X = parseInt($("#inimigo1").css("left"));
             inimigo1Y = parseInt($("#inimigo1").css("top"));
 
@@ -211,6 +218,7 @@ function start() { // Inicio da funcao start()
         // Disparo com o inimigo2
         if (colisao4.length > 0) {
 
+            pontos = pontos + 50;
             inimigo2X = parseInt($("#inimigo2").css("left"));
             inimigo2Y = parseInt($("#inimigo2").css("top"));
             $("#inimigo2").remove();
@@ -225,12 +233,14 @@ function start() { // Inicio da funcao start()
         // jogador com o amigo
         if (colisao5.length > 0) {
 
+            salvos++;
             reposicionaAmigo();
             $("#amigo").remove();
         }
 
         if (colisao6.length > 0) {
 
+            perdidos++;
             amigoX = parseInt($("#amigo").css("left"));
             amigoY = parseInt($("#amigo").css("top"));
             explosao3(amigoX, amigoY);
@@ -290,7 +300,7 @@ function start() { // Inicio da funcao start()
         $("#explosao3").css("top", amigoY);
         $("#explosao3").css("left", amigoX);
         var tempoExplosao3 = window.setInterval(resetaExplosao3, 1000);
-        
+
         function resetaExplosao3() {
             $("#explosao3").remove();
             window.clearInterval(tempoExplosao3);
@@ -333,6 +343,12 @@ function start() { // Inicio da funcao start()
             }
 
         }
+
+    }
+
+    function placar() {
+
+        $("#placar").html("<h2> Pontos: " + pontos + " Salvos: " + salvos + " Perdidos: " + perdidos + "</h2>");
 
     }
 
