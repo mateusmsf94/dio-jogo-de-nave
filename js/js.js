@@ -60,7 +60,7 @@ function start() { // Inicio da funcao start()
         colisao();
         placar();
         energia();
-        musica.addEventListener("ended", function(){ musica.currentTime = 0; musica.play(); }, false);
+        musica.addEventListener("ended", function () { musica.currentTime = 0; musica.play(); }, false);
         musica.play();
 
 
@@ -393,9 +393,33 @@ function start() { // Inicio da funcao start()
             $("#energia").css("background-image", "url(imgs/energia0.png)");
 
             //Game Over
+            gameOver();
         }
 
     } //Fim funcao energia
 
+    function gameOver() {
+        fimdejogo = true;
+        musica.pause();
+        somGameover.play();
+
+        window.clearInterval(jogo.timer);
+        jogo.timer = null;
+
+        $("#jogador").remove();
+        $("#inimigo1").remove();
+        $("#inimigo2").remove();
+        $("#amigo").remove();
+
+        $("#fundoGame").append("<div id='fim'></div>");
+
+        $("#fim").html("<h1> Game Over </h1><p>Sua pontuacao foi: " + pontos + "</p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>");
+    }//Fim funcao game over
+
 } // Fim da funcao start
 
+function reiniciaJogo() {
+	somGameover.pause();
+	$("#fim").remove();
+	start();
+}
